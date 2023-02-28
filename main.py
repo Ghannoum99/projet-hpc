@@ -44,6 +44,7 @@ def pageRank(P, damping_factor, tolerance):
 
     print("\ncounter : ", counter)
 
+
 if __name__ == '__main__':
     damping_factor = 0.85
     tolerance = 0.000001
