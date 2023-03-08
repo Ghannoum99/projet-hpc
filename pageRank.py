@@ -4,17 +4,17 @@
 import numpy as np
 from numpy.linalg import norm
 from graph_handler import GraphHandler
-from pageRank import pageRank
-from simulation import epidemic_simulation_pagerank
-from test import simulate_epidemic_pagerank_vaccinated
 
 
 def pageRank(P, damping_factor, tolerance):
     jumping_rate = 1 - damping_factor
 
-    G = graph.get_matrix_G()
-
-    size = graph.get_nodes_nb()
+    size = len(P)
+    G = [[0 for i in range(size)] for j in range(size)]
+    for i in range(size):
+        print("\n")
+        for j in range(size):
+            G[i][j] = 1 / size
 
     x = [0 for i in range(size)]
     x[0] = 1
@@ -48,6 +48,8 @@ def pageRank(P, damping_factor, tolerance):
     return new_x
 
 
+
+
 if __name__ == '__main__':
     damping_factor = 0.85
     tolerance = 0.000001
@@ -55,15 +57,6 @@ if __name__ == '__main__':
     graph.generate_graph()
     size = graph.get_nodes_nb()
     adj_matrix = graph.get_adj_matrix()
-
-    infection_rate = 0.2
-    recovery_rate = 0.24
-    vaccination_rate = 0.4
-    initial_infected = 3
-    initial_vaccinated = 2
-    simulation_duration = 20
-    simulate_epidemic_pagerank_vaccinated(graph, initial_infected, initial_vaccinated, infection_rate, recovery_rate,
-                                          vaccination_rate, simulation_duration)
     P = graph.get_transition_matrix(adj_matrix)
 
     pageRank(P, damping_factor, tolerance)

@@ -25,6 +25,12 @@ class GraphHandler:
         edges_nb = line[4]
         return int(edges_nb)
 
+    def get_nodes(self, size):
+        nodes = list()
+        for i in range(size):
+            nodes.append(i)
+        return nodes
+
     # fonction permettant de créer un graphe
     def generate_graph(self):
         graph = []
