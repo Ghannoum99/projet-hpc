@@ -10,20 +10,6 @@ from pageRank import pageRank
 damping_factor = 0.85
 tolerance = 0.000001
 
-def display_population(G, infected, vaccinated, nodes_nb):
-    # Visualiser les résultats
-    node_colors = []
-    for i in range(nodes_nb):
-        if infected[i] == 1:
-            node_colors.append('red')
-        elif vaccinated[i] == 1:
-            node_colors.append('green')
-        else:
-            node_colors.append('blue')
-
-    nx.draw(G, node_color=node_colors, with_labels=True)
-    plt.show()
-
 
 def simulate_epidemic_pagerank_vaccinated(G, nb_infected, nb_vaccinated, infection_rate, recovery_rate,
                                           vaccination_rate):
