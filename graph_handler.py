@@ -3,8 +3,6 @@
 
 import linecache
 import numpy as np
-from numpy.linalg import norm
-
 
 
 class GraphHandler:
@@ -73,14 +71,14 @@ class GraphHandler:
                 print("P[" + str(i) +"][" + str(j) +"] : ", P[i][j], end="\t")
         return P
 
-    def get_neigh(self, x):
-        neigh = []
+    def get_neighbors(self, x):
+        neighbors = []
         graphe = self.generate_graph()
         for node in graphe:
             if x in node[0]:
-                neigh.append(int(node[1]))
+                neighbors.append(int(node[1]))
 
-        return neigh
+        return neighbors
 
     def get_matrix_G(self):
         size = self.get_nodes_nb()

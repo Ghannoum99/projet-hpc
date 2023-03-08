@@ -3,7 +3,6 @@
 
 import numpy as np
 from numpy.linalg import norm
-from graph_handler import GraphHandler
 
 
 def pageRank(P, damping_factor, tolerance):

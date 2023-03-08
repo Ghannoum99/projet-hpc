@@ -1,10 +1,9 @@
-import networkx as nx
-import numpy as np
-import random
-from itertools import islice
-import matplotlib.pyplot as plt
-import scipy as sp
+#!/usr/bin/python3
+# Authors : Ulysse Feillet - Jihad GHANNOUM
 
+import numpy as np
+from itertools import islice
+from ctypes import *
 from pageRank import pageRank
 
 damping_factor = 0.85
@@ -45,7 +44,7 @@ def simulate_epidemic_pagerank_vaccinated(G, nb_infected, nb_vaccinated, infecti
 
             # si individu infecté, étape de possible infection de ses voisins
             if infected[i] == 1:
-                neighbors = G.get_neigh(str(i))
+                neighbors = G.get_neighbors(str(i))
                 for j in neighbors:
                     if infected[j] == 0 and vaccinated[j] == 0 and np.random.rand() < pr[j] * infection_rate:
                         print("Infection !")
@@ -58,7 +57,7 @@ def simulate_epidemic_pagerank_vaccinated(G, nb_infected, nb_vaccinated, infecti
 
             # si individu non infecté, étape de possible infection venant de ses voisins
             elif infected[i] == 0 and vaccinated[i] == 0:
-                neighbors = G.get_neigh(str(i))
+                neighbors = G.get_neighbors(str(i))
                 for j in neighbors:
                     if infected[j] == 1 and np.random.rand() < pr[j]:
                         print("Infection !")

@@ -1,20 +1,12 @@
 #!/usr/bin/python3
 # Authors : Ulysse Feillet - Jihad GHANNOUM
-import math
 
-import numpy as np
-from math import *
-from numpy.linalg import norm
+import math
 from graph_handler import GraphHandler
-from pageRank import pageRank
-from simulation import simulate_epidemic_pagerank_vaccinated
-from test import simulate_epidemic_pagerank_vaccinated
 from simulation import *
 
 
 if __name__ == '__main__':
-    damping_factor = 0.85
-    tolerance = 0.000001
     infection_rate = 0.2
     vaccination_rate = 0.24
     recovery_rate = 0.24
