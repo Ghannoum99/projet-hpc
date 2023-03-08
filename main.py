@@ -1,69 +1,30 @@
 #!/usr/bin/python3
 # Authors : Ulysse Feillet - Jihad GHANNOUM
+import math
 
 import numpy as np
+from math import *
 from numpy.linalg import norm
 from graph_handler import GraphHandler
 from pageRank import pageRank
-from simulation import epidemic_simulation_pagerank
+from simulation import simulate_epidemic_pagerank_vaccinated
 from test import simulate_epidemic_pagerank_vaccinated
-
-
-def pageRank(P, damping_factor, tolerance):
-    jumping_rate = 1 - damping_factor
-
-    G = graph.get_matrix_G()
-
-    size = graph.get_nodes_nb()
-
-    x = [0 for i in range(size)]
-    x[0] = 1
-
-    old_x = []
-    new_x = []
-    counter = 0
-
-    new_x = x
-
-    while True:
-        old_x = new_x
-        # P * x
-        new_x = np.array(P).dot(old_x)
-        # P * alpha * x
-        new_x = new_x * damping_factor
-        # (P * alpha * X) + ((1 - alpha) * G * X)
-        new_x = new_x + ((jumping_rate) * np.array(G).dot(old_x))
-        print("\n")
-        for i in range(size):
-            print("new_x[" + str(i) + "] : ", "%.9f" % new_x[i], end="\t")
-
-        counter += 1
-        diff = [new - old for old, new in zip(old_x, new_x)]
-        # Normalisation
-        N = norm(diff)
-
-        if N < tolerance:
-            break
-    print("\n fini à l'itération : ", counter)
-    return new_x
+from simulation import *
 
 
 if __name__ == '__main__':
     damping_factor = 0.85
     tolerance = 0.000001
-    graph = GraphHandler("test.txt")
-    graph.generate_graph()
-    size = graph.get_nodes_nb()
-    adj_matrix = graph.get_adj_matrix()
-
     infection_rate = 0.2
+    vaccination_rate = 0.24
     recovery_rate = 0.24
-    vaccination_rate = 0.4
-    initial_infected = 3
-    initial_vaccinated = 2
-    simulation_duration = 20
-    simulate_epidemic_pagerank_vaccinated(graph, initial_infected, initial_vaccinated, infection_rate, recovery_rate,
-                                          vaccination_rate, simulation_duration)
-    P = graph.get_transition_matrix(adj_matrix)
 
-    pageRank(P, damping_factor, tolerance)
+    graph = GraphHandler("test.txt")
+    nodes_nb = graph.get_nodes_nb()
+
+    nb_infected = int(nodes_nb * 0.3)
+    # Nombre n d'individus vaccinés au départ (10% de la population)
+    nb_vaccinated = math.ceil(nodes_nb * 0.1)
+
+    simulate_epidemic_pagerank_vaccinated(graph, nb_infected, nb_vaccinated, infection_rate, recovery_rate,
+                                          vaccination_rate)

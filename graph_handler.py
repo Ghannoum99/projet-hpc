@@ -6,6 +6,7 @@ import numpy as np
 from numpy.linalg import norm
 
 
+
 class GraphHandler:
 
     def __init__(self, filename):
@@ -25,9 +26,9 @@ class GraphHandler:
         edges_nb = line[4]
         return int(edges_nb)
 
-    def get_nodes(self, size):
+    def get_nodes(self):
         nodes = list()
-        for i in range(size):
+        for i in range(self.get_nodes_nb()):
             nodes.append(i)
         return nodes
 
@@ -71,6 +72,15 @@ class GraphHandler:
             for j in range(len(P)):
                 print("P[" + str(i) +"][" + str(j) +"] : ", P[i][j], end="\t")
         return P
+
+    def get_neigh(self, x):
+        neigh = []
+        graphe = self.generate_graph()
+        for node in graphe:
+            if x in node[0]:
+                neigh.append(int(node[1]))
+
+        return neigh
 
     def get_matrix_G(self):
         size = self.get_nodes_nb()
